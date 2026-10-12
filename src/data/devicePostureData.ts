@@ -1,0 +1,86 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { DevicePostureItem } from '../types/security';
+
+export const INITIAL_DEVICE_POSTURE: DevicePostureItem[] = [
+  {
+    id: 'POSTURE-001',
+    name: 'SELinux Enforcement Kernel State',
+    category: 'KERNEL',
+    status: 'CRITICAL',
+    currentValue: 'Permissive',
+    expectedValue: 'Enforcing',
+    description: 'Security-Enhanced Linux must be enforcing MAC mandatory access control to preserve app sandboxes.',
+    remediationCommand: 'adb shell su -c "setenforce 1"',
+    canAutoHardening: true,
+  },
+  {
+    id: 'POSTURE-002',
+    name: 'SU / Magisk Binary Presence',
+    category: 'KERNEL',
+    status: 'CRITICAL',
+    currentValue: 'Detected in /system/xbin/su',
+    expectedValue: 'Clean (No SU binary)',
+    description: 'Active root binaries compromise hardware keystore isolation and app sandboxes.',
+    remediationCommand: 'adb shell su -c "rm -f /system/xbin/su /system/bin/su"',
+    canAutoHardening: true,
+  },
+  {
+    id: 'POSTURE-003',
+    name: 'USB Debugging (ADB) Interface',
+    category: 'SYSTEM_SETTINGS',
+    status: 'WARNING',
+    currentValue: 'Enabled (Port 5555 active)',
+    expectedValue: 'Disabled',
+    description: 'Persistent USB debugging exposes physical port to Juice Jacking and forensic extraction.',
+    remediationCommand: 'adb shell settings put global adb_enabled 0',
+    canAutoHardening: true,
+  },
+  {
+    id: 'POSTURE-004',
+    name: 'Install From Unknown Sources (Sideloading)',
+    category: 'SYSTEM_SETTINGS',
+    status: 'WARNING',
+    currentValue: 'Allowed for 4 Applications',
+    expectedValue: 'Disallowed (Play Store Only)',
+    description: 'Allows sideloading of uninspected APKs from mobile web browsers and messaging apps.',
+    remediationCommand: 'adb shell cmd appops reset-all-mode REQUEST_INSTALL_PACKAGES',
+    canAutoHardening: true,
+  },
+  {
+    id: 'POSTURE-005',
+    name: 'Google Play Protect Live Shield',
+    category: 'PLAY_PROTECT',
+    status: 'WARNING',
+    currentValue: 'Scan Paused',
+    expectedValue: 'Active & Cloud Scanning Enabled',
+    description: 'Real-time on-device malware scanner should continuously analyze installed packages.',
+    remediationCommand: 'adb shell cmd package set-harmful-app-warning-state enable',
+    canAutoHardening: true,
+  },
+  {
+    id: 'POSTURE-006',
+    name: 'Device Storage File-Based Encryption (FBE)',
+    category: 'STORAGE_ENCRYPTION',
+    status: 'COMPLIANT',
+    currentValue: 'AES-256-XTS Active (Hardware Keystore)',
+    expectedValue: 'AES-256-XTS Active',
+    description: 'Device cryptographic partitions are locked with hardware-backed TrustZone keys.',
+    remediationCommand: 'N/A (Compliant)',
+    canAutoHardening: false,
+  },
+  {
+    id: 'POSTURE-007',
+    name: 'User Trust Store Root Certificates',
+    category: 'NETWORK',
+    status: 'WARNING',
+    currentValue: '1 Untrusted User CA Present',
+    expectedValue: '0 User CAs (System CAs Only)',
+    description: 'User CA certs can be leveraged to mount Man-in-the-Middle SSL interception attacks.',
+    remediationCommand: 'adb shell rm -f /data/misc/user/0/cacerts-added/*',
+    canAutoHardening: true,
+  },
+];

@@ -1,0 +1,150 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { ApkPackageInfo } from '../types/security';
+
+export const SAMPLE_APKS: ApkPackageInfo[] = [
+  {
+    packageName: 'com.live.stream.tvplayer',
+    appName: 'FastStream HD Video Player',
+    versionName: '2.4.1-mod',
+    versionCode: 104,
+    minSdkVersion: 26,
+    targetSdkVersion: 31,
+    apkSizeMb: 14.8,
+    sha256: '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08',
+    isSideloaded: true,
+    isSignedWithDebugKey: true,
+    shannonEntropy: 7.84,
+    entropyVerdict: 'PACKED_ENCRYPTED_PAYLOAD',
+    malwareFamily: 'SharkBot Android Banking Trojan',
+    threatDescription:
+      'Impersonates video streaming app while bundling an encrypted dynamic DEX dropper. Injects fake login overlays over 230+ European and US banking apps, intercepts ATS (Automated Transfer System) transactions, and bypasses Google Play Store scrutiny.',
+    threatScore: 96,
+    permissions: [
+      { name: 'android.permission.BIND_ACCESSIBILITY_SERVICE', isDangerous: true, isGranted: true, riskReason: 'Can read screen hierarchy, capture credentials, auto-click permissions' },
+      { name: 'android.permission.SYSTEM_ALERT_WINDOW', isDangerous: true, isGranted: true, riskReason: 'Renders phishing overlays directly over banking applications' },
+      { name: 'android.permission.REQUEST_INSTALL_PACKAGES', isDangerous: true, isGranted: true, riskReason: 'Silent installation of secondary malicious APK payloads' },
+      { name: 'android.permission.RECEIVE_BOOT_COMPLETED', isDangerous: false, isGranted: true, riskReason: 'Persists across device restarts' },
+      { name: 'android.permission.INTERNET', isDangerous: false, isGranted: true },
+      { name: 'android.permission.QUERY_ALL_PACKAGES', isDangerous: true, isGranted: true, riskReason: 'Enumerates installed banking apps for target selection' },
+    ],
+    exportedComponents: [
+      { name: 'com.live.stream.service.CoreAccessibilityHelper', type: 'Service', isProtectedByPermission: false, vulnerabilityFlag: 'Unprotected Accessibility service interface' },
+      { name: 'com.live.stream.receiver.BootPersistReceiver', type: 'Receiver', isProtectedByPermission: false, vulnerabilityFlag: 'Auto-triggers on device boot' },
+      { name: 'com.live.stream.ui.OverlaySplashActivity', type: 'Activity', isProtectedByPermission: false, vulnerabilityFlag: 'Can be initiated via external Intent' },
+    ],
+  },
+  {
+    packageName: 'com.network.sysdiagnostics',
+    appName: 'Android System Health & Diagnostics',
+    versionName: '1.0.8',
+    versionCode: 18,
+    minSdkVersion: 24,
+    targetSdkVersion: 29,
+    apkSizeMb: 4.2,
+    sha256: '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8',
+    isSideloaded: true,
+    isSignedWithDebugKey: false,
+    shannonEntropy: 7.62,
+    entropyVerdict: 'PACKED_ENCRYPTED_PAYLOAD',
+    malwareFamily: 'Commercial Spyware (Pegasus / Hermit Indicator)',
+    threatDescription:
+      'Sophisticated covert spyware framework targeting high-profile mobile users. Exploits zero-click WebKit and baseband vulnerabilities to extract WhatsApp, Telegram, and Signal end-to-end encrypted chats, microphone audio, and real-time GPS coordinates.',
+    threatScore: 98,
+    permissions: [
+      { name: 'android.permission.RECORD_AUDIO', isDangerous: true, isGranted: true, riskReason: 'Covert ambient audio recording without notification' },
+      { name: 'android.permission.CAMERA', isDangerous: true, isGranted: true, riskReason: 'Surreptitious background photo capture' },
+      { name: 'android.permission.ACCESS_FINE_LOCATION', isDangerous: true, isGranted: true, riskReason: 'High-precision persistent location tracking' },
+      { name: 'android.permission.ACCESS_BACKGROUND_LOCATION', isDangerous: true, isGranted: true, riskReason: 'Geofenced surveillance when app is not in foreground' },
+      { name: 'android.permission.READ_CONTACTS', isDangerous: true, isGranted: true, riskReason: 'Address book harvest' },
+      { name: 'android.permission.READ_CALL_LOG', isDangerous: true, isGranted: true, riskReason: 'Call metadata exfiltration' },
+    ],
+    exportedComponents: [
+      { name: 'com.network.sysdiagnostics.TelemetryService', type: 'Service', isProtectedByPermission: false, vulnerabilityFlag: 'C2 beaconing worker' },
+      { name: 'com.network.sysdiagnostics.IPCProvider', type: 'Provider', isProtectedByPermission: false, vulnerabilityFlag: 'World-accessible ContentProvider' },
+    ],
+  },
+  {
+    packageName: 'com.fedex.delivery.tracking',
+    appName: 'Express Courier Package Tracker',
+    versionName: '3.1.0',
+    versionCode: 31,
+    minSdkVersion: 23,
+    targetSdkVersion: 28,
+    apkSizeMb: 6.7,
+    sha256: '4b227777d4dd1fc61c6f884f48641d02b4d121d3fd328cb08b5531fcacdabf8a',
+    isSideloaded: true,
+    isSignedWithDebugKey: true,
+    shannonEntropy: 7.45,
+    entropyVerdict: 'PACKED_ENCRYPTED_PAYLOAD',
+    malwareFamily: 'FluBot / Cabassous Android Worm',
+    threatDescription:
+      'Spreads via Smishing (SMS phishing with fake package tracking links). Steals banking credentials and turns infected device into a botnet node, blasting thousands of deceptive SMS messages to all contacts in the address book.',
+    threatScore: 91,
+    permissions: [
+      { name: 'android.permission.READ_SMS', isDangerous: true, isGranted: true, riskReason: 'Harvests 2FA codes and bank SMS' },
+      { name: 'android.permission.SEND_SMS', isDangerous: true, isGranted: true, riskReason: 'Worm dissemination via victim phone plan' },
+      { name: 'android.permission.READ_CONTACTS', isDangerous: true, isGranted: true, riskReason: 'Extracts contact list for botnet propagation' },
+      { name: 'android.permission.RECEIVE_SMS', isDangerous: true, isGranted: true, riskReason: 'Suppresses incoming carrier security warnings' },
+      { name: 'android.permission.INTERNET', isDangerous: false, isGranted: true },
+    ],
+    exportedComponents: [
+      { name: 'com.fedex.delivery.SmsInterceptReceiver', type: 'Receiver', isProtectedByPermission: false, vulnerabilityFlag: 'SMS listener with priority 999' },
+    ],
+  },
+  {
+    packageName: 'com.shadowfight.mod.unlimited',
+    appName: 'Shadow Combat 3 Mod [Unlimited Gold]',
+    versionName: '1.28.0-modded',
+    versionCode: 128,
+    minSdkVersion: 26,
+    targetSdkVersion: 33,
+    apkSizeMb: 88.5,
+    sha256: 'ef2d127de37b942baad06145e54b0c619a1f22327b2ebbcfbec78f5564afe39d',
+    isSideloaded: true,
+    isSignedWithDebugKey: false,
+    shannonEntropy: 6.88,
+    entropyVerdict: 'SUSPICIOUS',
+    malwareFamily: 'HiddenAds / Dropper Adware',
+    threatDescription:
+      'Cracked mobile game repackaged with intrusive background adware droppers. Bypasses battery optimization to spawn invisible WebViews generating fraudulent ad clicks in the background.',
+    threatScore: 68,
+    permissions: [
+      { name: 'android.permission.SYSTEM_ALERT_WINDOW', isDangerous: true, isGranted: true, riskReason: 'Full-screen popups over other games and apps' },
+      { name: 'android.permission.WAKE_LOCK', isDangerous: false, isGranted: true, riskReason: 'Prevents CPU sleep for background ad mining' },
+      { name: 'android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS', isDangerous: true, isGranted: true, riskReason: 'Continuous background operation' },
+      { name: 'android.permission.INTERNET', isDangerous: false, isGranted: true },
+    ],
+    exportedComponents: [
+      { name: 'com.shadowfight.mod.AdDaemonService', type: 'Service', isProtectedByPermission: false, vulnerabilityFlag: 'Unregulated ad miner service' },
+    ],
+  },
+  {
+    packageName: 'com.warrior.securebank',
+    appName: 'Warrior Enterprise Mobile Bank',
+    versionName: '4.5.0-release',
+    versionCode: 450,
+    minSdkVersion: 31,
+    targetSdkVersion: 34,
+    apkSizeMb: 28.1,
+    sha256: '1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b',
+    isSideloaded: false,
+    isSignedWithDebugKey: false,
+    shannonEntropy: 6.22,
+    entropyVerdict: 'NORMAL',
+    threatDescription:
+      'Compliant Android enterprise banking application. Enforces Google Play App Signing, ProGuard/R8 obfuscation, zero-trust network security config with certificate pinning, and SafetyNet/Play Integrity API attestation.',
+    threatScore: 4,
+    permissions: [
+      { name: 'android.permission.INTERNET', isDangerous: false, isGranted: true },
+      { name: 'android.permission.USE_BIOMETRIC', isDangerous: false, isGranted: true },
+      { name: 'android.permission.POST_NOTIFICATIONS', isDangerous: false, isGranted: true },
+    ],
+    exportedComponents: [
+      { name: 'com.warrior.securebank.ui.SplashActivity', type: 'Activity', isProtectedByPermission: false },
+    ],
+  },
+];

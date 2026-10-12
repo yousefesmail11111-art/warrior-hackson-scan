@@ -1,0 +1,6 @@
+{
+  "name": "Warrior Hackson Scan",
+  "description": "Enterprise-grade Android mobile security scanner, threat posture analyzer, and interactive vulnerability defense suite.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

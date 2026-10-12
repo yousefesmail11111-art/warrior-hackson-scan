@@ -39,6 +39,7 @@ import { ScientificEntropyViewer } from './components/ScientificEntropyViewer';
 import { ReportExportModal } from './components/ReportExportModal';
 import { AuditLogModal } from './components/AuditLogModal';
 import { RemediationModal } from './components/RemediationModal';
+import { DeveloperContactModal } from './components/DeveloperContactModal';
 
 export default function App() {
   const [vulnerabilities, setVulnerabilities] = useState<VulnerabilityItem[]>(
@@ -68,6 +69,7 @@ export default function App() {
   // Modals state
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isAuditLogOpen, setIsAuditLogOpen] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
   const [activeRemediationVuln, setActiveRemediationVuln] = useState<VulnerabilityItem | null>(null);
 
   // Real-time calculated scorecard
@@ -365,6 +367,7 @@ export default function App() {
         onStartScan={handleStartScan}
         onOpenReport={() => setIsReportOpen(true)}
         onOpenAuditLog={() => setIsAuditLogOpen(true)}
+        onOpenDeveloperContact={() => setIsContactOpen(true)}
         onResetAll={handleResetAll}
       />
 
@@ -498,29 +501,76 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-900 bg-slate-950/60 py-4 mt-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-mono">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-400">WARRIOR HACKSON SCAN</span>
-            <span>&bull;</span>
-            <span>Built for Warrior Hacks 2.0 Devpost Competition</span>
+      <footer className="border-t border-slate-900 bg-slate-950/80 py-6 mt-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+          {/* Creator & Developer Highlight Card */}
+          <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800/80 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-bold text-slate-200">
+                  Tool Creator & Systems Developer:
+                </span>
+                <button
+                  onClick={() => setIsContactOpen(true)}
+                  className="text-xs font-bold font-mono text-indigo-400 hover:text-indigo-300 underline underline-offset-2 transition-colors"
+                >
+                  Yousef Esmail Nossier
+                </button>
+              </div>
+              <p className="text-xs text-slate-400 font-mono">
+                Email:{' '}
+                <a
+                  href="mailto:yousefesmailnossier@gmail.com"
+                  className="text-slate-300 hover:text-indigo-400 transition-colors"
+                >
+                  yousefesmailnossier@gmail.com
+                </a>{' '}
+                &bull; Phone:{' '}
+                <a
+                  href="tel:01555874750"
+                  className="text-emerald-400 hover:text-emerald-300 transition-colors"
+                >
+                  01555874750
+                </a>{' '}
+                /{' '}
+                <a
+                  href="tel:01555198797"
+                  className="text-purple-400 hover:text-purple-300 transition-colors"
+                >
+                  01555198797
+                </a>
+              </p>
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <button
+                onClick={() => setIsContactOpen(true)}
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600/90 hover:bg-indigo-600 text-white shadow-sm flex items-center gap-1.5 transition-all"
+              >
+                <span>Contact Creator</span>
+              </button>
+              <button
+                onClick={() => setIsReportOpen(true)}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+              >
+                Export Report
+              </button>
+              <button
+                onClick={() => setIsAuditLogOpen(true)}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+              >
+                Audit Log ({auditLogs.length})
+              </button>
+            </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setIsReportOpen(true)}
-              className="hover:text-indigo-400 transition-colors"
-            >
-              Export Report
-            </button>
-            <button
-              onClick={() => setIsAuditLogOpen(true)}
-              className="hover:text-amber-400 transition-colors"
-            >
-              Audit Log ({auditLogs.length})
-            </button>
-            <span className="text-slate-600">&bull;</span>
-            <span className="text-emerald-500 font-semibold">Zero-Trust Mobile EDR</span>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-500 font-mono">
+            <div>
+              <span>WARRIOR HACKSON SCAN &bull; Warrior Hacks 2.0 Devpost Competition Entry</span>
+            </div>
+            <div className="flex items-center gap-2 text-emerald-400 font-medium">
+              <span>Zero-Trust Mobile Security Framework Active</span>
+            </div>
           </div>
         </div>
       </footer>
@@ -537,6 +587,10 @@ export default function App() {
 
       {isAuditLogOpen && (
         <AuditLogModal logs={auditLogs} onClose={() => setIsAuditLogOpen(false)} />
+      )}
+
+      {isContactOpen && (
+        <DeveloperContactModal onClose={() => setIsContactOpen(false)} />
       )}
 
       {activeRemediationVuln && (

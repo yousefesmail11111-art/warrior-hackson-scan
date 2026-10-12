@@ -44,6 +44,11 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
           application: 'Warrior Hackson Scan',
           competition: 'Warrior Hacks 2.0 Devpost',
           targetEnvironment: 'Android 14 (API 34) ARM64-v8a',
+          creatorAndDeveloper: {
+            name: 'Yousef Esmail Nossier',
+            email: 'yousefesmailnossier@gmail.com',
+            phone: '01555874750 / 01555198797',
+          },
           timestamp: new Date().toISOString(),
           cryptographicSignature: reportHash,
         },
@@ -137,6 +142,12 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
               <div className="text-xs text-slate-400 font-mono space-y-0.5">
                 <p>Audited: {reportDate}</p>
                 <p className="text-[11px] text-slate-500 truncate">{reportHash}</p>
+                <p className="text-[11px] text-indigo-300 pt-0.5 font-semibold">
+                  Tool Creator & Systems Developer: Yousef Esmail Nossier
+                </p>
+                <p className="text-[10px] text-slate-400">
+                  Email: yousefesmailnossier@gmail.com &bull; Phone: 01555874750 / 01555198797
+                </p>
               </div>
             </div>
 

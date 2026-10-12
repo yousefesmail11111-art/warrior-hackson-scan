@@ -13,6 +13,7 @@ import {
   Clock,
   Sparkles,
   Cpu,
+  User,
 } from 'lucide-react';
 import { ThreatLevel } from '../types/security';
 
@@ -23,6 +24,7 @@ interface HeaderProps {
   onStartScan: () => void;
   onOpenReport: () => void;
   onOpenAuditLog: () => void;
+  onOpenDeveloperContact: () => void;
   onResetAll: () => void;
 }
 
@@ -33,6 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
   onStartScan,
   onOpenReport,
   onOpenAuditLog,
+  onOpenDeveloperContact,
   onResetAll,
 }) => {
   return (
@@ -113,6 +116,15 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Clock className="w-3.5 h-3.5 text-amber-400" />
               <span>Forensic Log</span>
+            </button>
+
+            <button
+              onClick={onOpenDeveloperContact}
+              className="px-3 py-2 rounded-lg text-xs sm:text-sm font-medium bg-gradient-to-r from-indigo-950/60 to-purple-950/60 hover:from-indigo-900/60 hover:to-purple-900/60 text-indigo-200 border border-indigo-500/30 transition-all flex items-center gap-1.5 shadow-sm"
+              title="Contact Tool Creator & Developer: Yousef Esmail Nossier"
+            >
+              <User className="w-3.5 h-3.5 text-indigo-400" />
+              <span>Developer Contact</span>
             </button>
 
             <button

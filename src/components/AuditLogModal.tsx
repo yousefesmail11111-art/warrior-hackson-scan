@@ -60,9 +60,9 @@ export const AuditLogModal: React.FC<AuditLogModalProps> = ({ logs, onClose }) =
         {/* Log Entries */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-2.5 bg-slate-950/40">
           {logs.length > 0 ? (
-            logs.map((log) => (
+            logs.map((log, index) => (
               <div
-                key={log.id}
+                key={`${log.id}-${index}`}
                 className="p-3 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-1.5 font-mono"
               >
                 <div className="flex items-center justify-between text-slate-400 text-[11px]">

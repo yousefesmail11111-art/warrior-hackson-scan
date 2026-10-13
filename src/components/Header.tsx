@@ -14,6 +14,7 @@ import {
   Sparkles,
   Cpu,
   User,
+  Download,
 } from 'lucide-react';
 import { ThreatLevel } from '../types/security';
 
@@ -25,6 +26,7 @@ interface HeaderProps {
   onOpenReport: () => void;
   onOpenAuditLog: () => void;
   onOpenDeveloperContact: () => void;
+  onOpenInstallModal: () => void;
   onResetAll: () => void;
 }
 
@@ -36,6 +38,7 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenReport,
   onOpenAuditLog,
   onOpenDeveloperContact,
+  onOpenInstallModal,
   onResetAll,
 }) => {
   return (
@@ -116,6 +119,15 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Clock className="w-3.5 h-3.5 text-amber-400" />
               <span>Forensic Log</span>
+            </button>
+
+            <button
+              onClick={onOpenInstallModal}
+              className="px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-md shadow-emerald-600/20 transition-all flex items-center gap-1.5 active:scale-95"
+              title="تثبيت التطبيق على هاتفك أو الكمبيوتر كأيقونة"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>تثبيت التطبيق (Install)</span>
             </button>
 
             <button

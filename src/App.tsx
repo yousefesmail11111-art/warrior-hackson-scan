@@ -40,6 +40,9 @@ import { ReportExportModal } from './components/ReportExportModal';
 import { AuditLogModal } from './components/AuditLogModal';
 import { RemediationModal } from './components/RemediationModal';
 import { DeveloperContactModal } from './components/DeveloperContactModal';
+import { InstallAppModal } from './components/InstallAppModal';
+
+let auditLogSequence = 0;
 
 export default function App() {
   const [vulnerabilities, setVulnerabilities] = useState<VulnerabilityItem[]>(
@@ -70,6 +73,7 @@ export default function App() {
   const [isReportOpen, setIsReportOpen] = useState(false);
   const [isAuditLogOpen, setIsAuditLogOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
+  const [isInstallOpen, setIsInstallOpen] = useState(false);
   const [activeRemediationVuln, setActiveRemediationVuln] = useState<VulnerabilityItem | null>(null);
 
   // Real-time calculated scorecard
@@ -79,9 +83,10 @@ export default function App() {
 
   // Helper to append forensic audit log
   const addAuditLog = (action: string, targetId: string, targetName: string, userNote?: string) => {
+    auditLogSequence += 1;
     const timestamp = new Date().toLocaleTimeString();
     // Generate pseudo-SHA256 signature
-    const rawStr = `${timestamp}-${action}-${targetId}-${Math.random()}`;
+    const rawStr = `${timestamp}-${action}-${targetId}-${auditLogSequence}-${Math.random()}`;
     let hashNum = 0;
     for (let i = 0; i < rawStr.length; i++) {
       hashNum = (hashNum << 5) - hashNum + rawStr.charCodeAt(i);
@@ -89,8 +94,9 @@ export default function App() {
     }
     const integrityHash = Math.abs(hashNum).toString(16).padStart(16, '0') + '4f88e2c390a1b244';
 
+    const uniqueId = `LOG-${Date.now()}-${auditLogSequence}-${Math.random().toString(36).slice(2, 8)}`;
     const newEntry: AuditLogEntry = {
-      id: `LOG-${Date.now()}`,
+      id: uniqueId,
       timestamp,
       action,
       targetId,
@@ -368,6 +374,7 @@ export default function App() {
         onOpenReport={() => setIsReportOpen(true)}
         onOpenAuditLog={() => setIsAuditLogOpen(true)}
         onOpenDeveloperContact={() => setIsContactOpen(true)}
+        onOpenInstallModal={() => setIsInstallOpen(true)}
         onResetAll={handleResetAll}
       />
 
@@ -542,7 +549,13 @@ export default function App() {
               </p>
             </div>
 
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2 shrink-0 flex-wrap">
+              <button
+                onClick={() => setIsInstallOpen(true)}
+                className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600/90 hover:bg-emerald-600 text-white shadow-sm flex items-center gap-1.5 transition-all"
+              >
+                <span>تثبيت التطبيق (Install App)</span>
+              </button>
               <button
                 onClick={() => setIsContactOpen(true)}
                 className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600/90 hover:bg-indigo-600 text-white shadow-sm flex items-center gap-1.5 transition-all"
@@ -591,6 +604,10 @@ export default function App() {
 
       {isContactOpen && (
         <DeveloperContactModal onClose={() => setIsContactOpen(false)} />
+      )}
+
+      {isInstallOpen && (
+        <InstallAppModal onClose={() => setIsInstallOpen(false)} />
       )}
 
       {activeRemediationVuln && (

@@ -322,7 +322,7 @@ export const ApkInspector: React.FC<ApkInspectorProps> = ({ onScanApk, onQuarant
             <div className="space-y-2 max-h-72 overflow-y-auto pr-1">
               {selectedApk.permissions.map((perm, idx) => (
                 <div
-                  key={idx}
+                  key={`${perm.name}-${idx}`}
                   className={`p-2.5 rounded-xl border text-xs ${
                     perm.isDangerous
                       ? 'bg-rose-950/20 border-rose-900/30'
@@ -368,7 +368,7 @@ export const ApkInspector: React.FC<ApkInspectorProps> = ({ onScanApk, onQuarant
             <div className="space-y-2">
               {selectedApk.exportedComponents.map((comp, idx) => (
                 <div
-                  key={idx}
+                  key={`${comp.name}-${idx}`}
                   className="p-2.5 rounded-xl bg-slate-950/50 border border-slate-800 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2"
                 >
                   <div>
